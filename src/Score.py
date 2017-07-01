@@ -35,3 +35,26 @@ def calcScore(all_text, over_dict):
             score_dict[key] = math.log(all_score / temp_score)
 
     return score_dict
+
+
+# input:  all_dict: All dictionaries from K target texts
+#
+# output: freq_all_dict: Relative frequency of the word to one specific target text
+def calcFreq(all_dict):
+    if len(all_dict) == 1:
+        return all_dict
+    else:
+        sum_dict = {}
+        for l_dict in all_dict:
+            for key, value in l_dict.items():
+                if key in sum_dict:
+                    sum_dict[key] += value
+                else:
+                    sum_dict[key] = value
+
+        freq_all_dict = []
+        for i in range(len(all_dict)):
+            for key, value in all_dict[i]:
+                freq_all_dict[i][key] = value / sum_dict[key]
+
+    return freq_all_dict
